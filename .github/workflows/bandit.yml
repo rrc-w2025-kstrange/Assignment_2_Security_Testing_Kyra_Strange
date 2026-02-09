@@ -1,17 +1,24 @@
 name: Bandit
 
 on:
-  workflow_dispatch:
+  push:
+    paths:
+      - '**/*.py'    # run on any Python file
+  pull_request:
+    paths:
+      - '**/*.py'    # also run on PRs with Python files
 
 jobs:
   analyze:
     runs-on: ubuntu-latest
-    permissions:
-      # required for all workflows
-      security-events: write
-      # only required for workflows in private repositories
-      actions: read
-      contents: read
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Bandit
+        run: pip install bandit
+
       - name: Perform Bandit Analysis
         uses: PyCQA/bandit-action@v1
+        with:
+          args: -r .
