@@ -35,4 +35,4 @@ if __name__ == '__main__':
     save_to_db(data)
     send_email('admin@example.com', 'User Input', user_input)
 
-#testing
+# trigger Bandit
