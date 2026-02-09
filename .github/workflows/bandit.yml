@@ -1,12 +1,8 @@
-name: Bandit
+name: Bandit Security Scan
 
 on:
-  push:
-    paths:
-      - '**/*.py'    # run on any Python file
-  pull_request:
-    paths:
-      - '**/*.py'    # also run on PRs with Python files
+  push:           # runs on any push
+  pull_request:   # runs on PRs too
 
 jobs:
   analyze:
@@ -18,7 +14,5 @@ jobs:
       - name: Install Bandit
         run: pip install bandit
 
-      - name: Perform Bandit Analysis
-        uses: PyCQA/bandit-action@v1
-        with:
-          args: -r .
+      - name: Run Bandit scan
+        run: bandit -r .
